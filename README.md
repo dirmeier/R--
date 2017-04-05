@@ -7,7 +7,7 @@
 
 An interpreter for R in Java.
 
-![R--](https://github.com/dirmeier/R--/blob/master/_fig/intro.gif "R--")
+![R--](https://github.com/dirmeier/R--/blob/master/_fig/demo.gif "R--")
 
 ## Introduction
 
