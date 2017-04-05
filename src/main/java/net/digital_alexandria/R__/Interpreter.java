@@ -1,4 +1,4 @@
-package net.digital_alexandria.R__;
+package net.digital_alexandria.r__;
 
 import java.util.NoSuchElementException;
 import java.util.Scanner;

@@ -1,10 +1,11 @@
-package net.digital_alexandria.R__;
+package net.digital_alexandria.r__;
 
 /**
  * @author Simon Dirmeier {@literal mail@simon-dirmeier.net}
  */
 public class Operation
 {
+
     public String addition(Object lhs, Object rhs)
     {
         if (lhs instanceof Integer && rhs instanceof Integer)

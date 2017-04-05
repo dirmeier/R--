@@ -1,4 +1,4 @@
-package net.digital_alexandria.R__;
+package net.digital_alexandria.r__;
 
 /**
  * @author Simon Dirmeier {@literal mail@simon-dirmeier.net}

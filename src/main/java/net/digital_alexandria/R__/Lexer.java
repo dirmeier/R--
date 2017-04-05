@@ -1,4 +1,4 @@
-package net.digital_alexandria.R__;
+package net.digital_alexandria.r__;
 
 /**
  * @author Simon Dirmeier {@literal mail@simon-dirmeier.net}
@@ -19,23 +19,23 @@ public final class Lexer
         _pos = 0;
         _currToken = null;
         _currChar = _text.charAt(_pos);
-        return _tokenize();
+        return tokenize();
     }
 
-    private String _tokenize()
+    private String tokenize()
     {
-        _currToken = _next();
+        _currToken = next();
 
         Token lhs = _currToken;
-        _eat(TokenCategory.INTEGER);
+        eat(TokenCategory.INTEGER);
 
         Token op = _currToken;
-        _eat(op.category() == TokenCategory.PLUS ?
+        eat(op.category() == TokenCategory.PLUS ?
                  TokenCategory.PLUS :
                  TokenCategory.MINUS);
 
         Token rhs = _currToken;
-        _eat(TokenCategory.INTEGER);
+        eat(TokenCategory.INTEGER);
 
         switch (op.category())
         {
@@ -48,15 +48,15 @@ public final class Lexer
         }
     }
 
-    private void _eat(TokenCategory category)
+    private void eat(TokenCategory category)
     {
         if (_currToken.category() == category)
-            _currToken = _next();
+            _currToken = next();
         else
             throw new ParsingException("Could not eat text.");
     }
 
-    private Token _next()
+    private Token next()
     {
         while (_currChar != '$')
         {
@@ -66,12 +66,12 @@ public final class Lexer
                 return new Token(TokenCategory.INTEGER, _toInt());
             else if (_currChar == '+')
             {
-                _incrementPosition();
+                incrementPosition();
                 return new Token(TokenCategory.PLUS, '+');
             }
             else if (_currChar == '-')
             {
-                _incrementPosition();
+                incrementPosition();
                 return new Token(TokenCategory.MINUS, '-');
             }
             throw new ParsingException("Could not take next token.");
@@ -79,7 +79,7 @@ public final class Lexer
         return new Token(TokenCategory.EOF, -1);
     }
 
-    private void _incrementPosition()
+    private void incrementPosition()
     {
         _pos++;
         if (this._pos > _text.length() - 1)
@@ -94,7 +94,7 @@ public final class Lexer
         while (_currChar != '$' && Character.isDigit(_currChar))
         {
             res.append(_currChar);
-            _incrementPosition();
+            incrementPosition();
         }
         return Integer.parseInt(res.toString());
     }
@@ -103,6 +103,6 @@ public final class Lexer
     {
         char c = _currChar;
         while (_currChar != '$' && c == ' ')
-            _incrementPosition();
+            incrementPosition();
     }
 }
