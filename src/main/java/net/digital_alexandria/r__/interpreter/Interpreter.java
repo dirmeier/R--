@@ -11,8 +11,7 @@ import java.util.Scanner;
  */
 public final class Interpreter
 {
-
-    private static Interpreter _interpreter;
+    private volatile static Interpreter _interpreter;
 
     private final Lexer _lexer;
 
