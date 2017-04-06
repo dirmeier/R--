@@ -1,19 +1,29 @@
-package net.digital_alexandria.r__;
+package net.digital_alexandria.r__.lexer;
+
+import net.digital_alexandria.r__.operators.Arithmetic;
+import net.digital_alexandria.r__.exceptions.ParsingException;
 
 /**
  * @author Simon Dirmeier {@literal mail@simon-dirmeier.net}
  */
 public final class Lexer
 {
+
     private final static char END_CHAR = '$';
-    private final static Operation _OP = new Operation();
 
     private String _text;
     private int _pos;
     private Token _currToken;
     private char _currChar;
 
-    public String tokenize(String text)
+    private Lexer(){}
+
+    public static Lexer instance()
+    {
+        return new Lexer();
+    }
+
+    public final String tokenize(final String text)
     {
         _text = text + END_CHAR;
         _pos = 0;
@@ -31,8 +41,8 @@ public final class Lexer
 
         Token op = _currToken;
         eat(op.category() == TokenCategory.PLUS ?
-                 TokenCategory.PLUS :
-                 TokenCategory.MINUS);
+              TokenCategory.PLUS :
+              TokenCategory.MINUS);
 
         Token rhs = _currToken;
         eat(TokenCategory.INTEGER);
@@ -40,15 +50,15 @@ public final class Lexer
         switch (op.category())
         {
             case PLUS:
-                return _OP.addition(lhs.value(), rhs.value());
+                return Arithmetic.addition(lhs.value(), rhs.value());
             case MINUS:
-                return _OP.substraction(lhs.value(), rhs.value());
+                return Arithmetic.substraction(lhs.value(), rhs.value());
             default:
                 throw new ParsingException("I dont know what to do.");
         }
     }
 
-    private void eat(TokenCategory category)
+    private void eat(final TokenCategory category)
     {
         if (_currToken.category() == category)
             _currToken = next();
@@ -61,9 +71,9 @@ public final class Lexer
         while (_currChar != '$')
         {
             if (Character.isSpaceChar(_currChar))
-                _skipWhitespace();
+                skipWhitespace();
             else if (Character.isDigit(_currChar))
-                return new Token(TokenCategory.INTEGER, _toInt());
+                return new Token(TokenCategory.INTEGER, toInt());
             else if (_currChar == '+')
             {
                 incrementPosition();
@@ -88,7 +98,7 @@ public final class Lexer
             _currChar = this._text.charAt(this._pos);
     }
 
-    private Integer _toInt()
+    private Integer toInt()
     {
         StringBuilder res = new StringBuilder();
         while (_currChar != '$' && Character.isDigit(_currChar))
@@ -99,7 +109,7 @@ public final class Lexer
         return Integer.parseInt(res.toString());
     }
 
-    private void _skipWhitespace()
+    private void skipWhitespace()
     {
         char c = _currChar;
         while (_currChar != '$' && c == ' ')

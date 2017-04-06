@@ -1,25 +1,25 @@
-package net.digital_alexandria.r__;
+package net.digital_alexandria.r__.lexer;
 
 /**
  * @author Simon Dirmeier {@literal mail@simon-dirmeier.net}
  */
-public class Token
+public final class Token
 {
     private final TokenCategory _tok;
     private final Object _val;
 
-    public Token(TokenCategory category, Object value)
+    Token(TokenCategory category, Object value)
     {
         _tok = category;
         _val = value;
     }
 
-    public TokenCategory category()
+    public final TokenCategory category()
     {
         return _tok;
     }
 
-    public Object value()
+    public final Object value()
     {
         return _val;
     }

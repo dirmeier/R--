@@ -1,31 +1,35 @@
-package net.digital_alexandria.r__;
+package net.digital_alexandria.r__.operators;
+
+import net.digital_alexandria.r__.exceptions.ParsingException;
 
 /**
  * @author Simon Dirmeier {@literal mail@simon-dirmeier.net}
  */
-public class Operation
+public final class Arithmetic
 {
 
-    public String addition(Object lhs, Object rhs)
+    private Arithmetic() {}
+
+    public static String addition(final Object lhs, final Object rhs)
     {
         if (lhs instanceof Integer && rhs instanceof Integer)
             return addition((Integer) lhs, (Integer) rhs);
         throw new ParsingException("Objects of different class");
     }
 
-    public String addition(Integer lhs, Integer rhs)
+    public static String addition(final Integer lhs, final Integer rhs)
     {
         return String.valueOf(lhs + rhs);
     }
 
-    public String substraction(Object lhs, Object rhs)
+    public static String substraction(final Object lhs, final Object rhs)
     {
         if (lhs instanceof Integer && rhs instanceof Integer)
             return substraction((Integer) lhs, (Integer) rhs);
         throw new ParsingException("Objects of different class");
     }
 
-    public String substraction(Integer lhs, Integer rhs)
+    public static String substraction(final Integer lhs, final Integer rhs)
     {
         return String.valueOf(lhs - rhs);
     }

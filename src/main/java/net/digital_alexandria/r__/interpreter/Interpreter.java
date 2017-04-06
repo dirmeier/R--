@@ -1,4 +1,7 @@
-package net.digital_alexandria.r__;
+package net.digital_alexandria.r__.interpreter;
+
+import net.digital_alexandria.r__.exceptions.ParsingException;
+import net.digital_alexandria.r__.lexer.Lexer;
 
 import java.util.NoSuchElementException;
 import java.util.Scanner;
@@ -9,10 +12,11 @@ import java.util.Scanner;
 public final class Interpreter
 {
 
-    private final Lexer _lexer;
-    private final Parser _parser;
+    private static Interpreter _interpreter;
 
-    public static final String DISCLAIMER = new StringBuilder()
+    private final Lexer _lexer;
+
+    private static final String DISCLAIMER = new StringBuilder()
       .append("\nWelcome to R-- v0.1 ('It's Alive').\n\n")
       .append("R-- is a slower, experimental, bad implementation of R in Java.\n")
       .append("I implemented R-- mainly for learning how an interpreter works" +
@@ -23,17 +27,24 @@ public final class Interpreter
       .toString();
 
 
-    public Interpreter()
+    private Interpreter()
     {
-        this._lexer = new Lexer();
-        this._parser = new Parser();
+        this._lexer = Lexer.instance();
+    }
+
+    public static Interpreter instance()
+    {
+        if (_interpreter == null)
+            _interpreter = new Interpreter();
+        return _interpreter;
     }
 
     public final void run()
     {
         Scanner sc = new Scanner(System.in);
         boolean isFirst = true;
-        while (true)
+        boolean exec = true;
+        while (exec)
         {
             if (isFirst)
             {
@@ -44,24 +55,27 @@ public final class Interpreter
             try
             {
                 String line = sc.nextLine();
-                if (line == null) return;
-                try
+                if (line == null) exec = false;
+                else
                 {
-                    System.out.println(this._interpret(line));
-                }
-                catch (ParsingException e)
-                {
-                    System.out.println(e.getMessage());
+                    try
+                    {
+                        System.out.println(this._interpret(line));
+                    }
+                    catch (ParsingException e)
+                    {
+                        System.out.println(e.getMessage());
+                    }
                 }
             }
             catch (NoSuchElementException e)
             {
-                return;
+                exec = false;
             }
         }
     }
 
-    private final String _interpret(String text)
+    private String _interpret(String text)
     {
         return this._lexer.tokenize(text);
     }

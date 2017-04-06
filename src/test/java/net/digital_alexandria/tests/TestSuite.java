@@ -11,13 +11,11 @@ import org.junit.runners.Suite;
  */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-  OperationTest.class
+  ArithmeticTest.class
 })
 public class TestSuite
 {
-
     @BeforeClass
     public static void setup()
-    {
-    }
+    {}
 }
