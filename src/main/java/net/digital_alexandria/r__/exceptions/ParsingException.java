@@ -5,7 +5,7 @@ package net.digital_alexandria.r__.exceptions;
  */
 public class ParsingException extends RuntimeException
 {
-    public ParsingException(String msg)
+    public ParsingException(final String msg)
     {
         super(msg);
     }

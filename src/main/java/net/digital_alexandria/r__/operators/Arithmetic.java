@@ -10,27 +10,14 @@ public final class Arithmetic
 
     private Arithmetic() {}
 
-    public static String addition(final Object lhs, final Object rhs)
+
+    public static Integer addition(final Integer lhs, final Integer rhs)
     {
-        if (lhs instanceof Integer && rhs instanceof Integer)
-            return addition((Integer) lhs, (Integer) rhs);
-        throw new ParsingException("Objects of different class");
+        return lhs + rhs;
     }
 
-    public static String addition(final Integer lhs, final Integer rhs)
+    public static Integer substraction(final Integer lhs, final Integer rhs)
     {
-        return String.valueOf(lhs + rhs);
-    }
-
-    public static String substraction(final Object lhs, final Object rhs)
-    {
-        if (lhs instanceof Integer && rhs instanceof Integer)
-            return substraction((Integer) lhs, (Integer) rhs);
-        throw new ParsingException("Objects of different class");
-    }
-
-    public static String substraction(final Integer lhs, final Integer rhs)
-    {
-        return String.valueOf(lhs - rhs);
+        return lhs - rhs;
     }
 }

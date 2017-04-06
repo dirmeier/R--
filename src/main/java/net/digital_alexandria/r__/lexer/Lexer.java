@@ -36,23 +36,25 @@ public final class Lexer
     {
         _currToken = next();
 
-        Token lhs = _currToken;
+        Token<Integer> lhs = _currToken;
         eat(TokenCategory.INTEGER);
 
-        Token op = _currToken;
+        Token<?> op = _currToken;
         eat(op.category() == TokenCategory.PLUS ?
               TokenCategory.PLUS :
               TokenCategory.MINUS);
 
-        Token rhs = _currToken;
+        Token<Integer> rhs = _currToken;
         eat(TokenCategory.INTEGER);
 
         switch (op.category())
         {
             case PLUS:
-                return Arithmetic.addition(lhs.value(), rhs.value());
+                return String.valueOf(
+                  Arithmetic.addition(lhs.value(), rhs.value()));
             case MINUS:
-                return Arithmetic.substraction(lhs.value(), rhs.value());
+                return String.valueOf(
+                  Arithmetic.substraction(lhs.value(), rhs.value()));
             default:
                 throw new ParsingException("I dont know what to do.");
         }

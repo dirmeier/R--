@@ -14,8 +14,4 @@ import org.junit.runners.Suite;
   ArithmeticTest.class
 })
 public class TestSuite
-{
-    @BeforeClass
-    public static void setup()
-    {}
-}
+{}

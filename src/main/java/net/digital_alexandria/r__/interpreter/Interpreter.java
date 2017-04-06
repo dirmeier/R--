@@ -18,9 +18,7 @@ public final class Interpreter
 
     private static final String DISCLAIMER = new StringBuilder()
       .append("\nWelcome to R-- v0.1 ('It's Alive').\n\n")
-      .append("R-- is a slower, experimental, bad implementation of R in Java.\n")
-      .append("I implemented R-- mainly for learning how an interpreter works" +
-              ".\n")
+      .append("R-- is a slower, experimental implementation of R in Java.\n")
       .append("Be aware of bugs and minimal functionality.\n")
       .append("If you are brave enough you can contribute.\n\n")
       .append("Ctrl+C or Ctrl+D to quit! Good luck.\n\n")
@@ -34,8 +32,13 @@ public final class Interpreter
 
     public static Interpreter instance()
     {
-        if (_interpreter == null)
-            _interpreter = new Interpreter();
+        synchronized (Interpreter.class)
+        {
+            if (_interpreter == null)
+            {
+                _interpreter = new Interpreter();
+            }
+        }
         return _interpreter;
     }
 
@@ -60,7 +63,7 @@ public final class Interpreter
                 {
                     try
                     {
-                        System.out.println(this._interpret(line));
+                        System.out.println(this.interpret(line));
                     }
                     catch (ParsingException e)
                     {
@@ -75,7 +78,7 @@ public final class Interpreter
         }
     }
 
-    private String _interpret(String text)
+    private String interpret(final String text)
     {
         return this._lexer.tokenize(text);
     }

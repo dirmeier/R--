@@ -3,12 +3,12 @@ package net.digital_alexandria.r__.lexer;
 /**
  * @author Simon Dirmeier {@literal mail@simon-dirmeier.net}
  */
-public final class Token
+public final class Token<T>
 {
     private final TokenCategory _tok;
-    private final Object _val;
+    private final T _val;
 
-    Token(TokenCategory category, Object value)
+    Token(final TokenCategory category, final T value)
     {
         _tok = category;
         _val = value;
@@ -19,7 +19,7 @@ public final class Token
         return _tok;
     }
 
-    public final Object value()
+    public final T value()
     {
         return _val;
     }

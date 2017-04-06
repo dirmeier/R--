@@ -5,11 +5,11 @@ import net.digital_alexandria.r__.interpreter.Interpreter;
 /**
  * @author Simon Dirmeier {@literal mail@simon-dirmeier.net}
  */
-public class Main
+public final class Main
 {
     private Main(){}
 
-    public static void main(String[] args)
+    public static void main(final String[] args)
     {
         Interpreter.instance().run();
     }
