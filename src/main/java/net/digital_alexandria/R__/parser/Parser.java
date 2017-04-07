@@ -30,13 +30,13 @@ public class Parser
         _currToken = _lexer.next();
     }
 
-    public AbstractSyntaxTree parse()
+    public ASTNode parse()
     {
         return expression();
     }
 
     @SuppressWarnings("unchecked")
-    private AbstractSyntaxTree expression()
+    private ASTNode expression()
     {
         ASTNode root = term();
 
@@ -58,13 +58,13 @@ public class Parser
             root = new BinaryOperationNode(root, t, term());
         }
 
-        return new AbstractSyntaxTree(root);
+        return root;
     }
 
     @SuppressWarnings("unchecked")
-    private Integer term()
+    private ASTNode term()
     {
-        Integer res = factor();
+        ASTNode res = factor();
         while (_currToken.category() == TokenCategory.MULT ||
                _currToken.category() == TokenCategory.DIV)
         {
@@ -73,34 +73,34 @@ public class Parser
             {
                 case MULT:
                     eat(TokenCategory.MULT);
-                    res = Arithmetic.multiplication(res, factor());
                     break;
                 case DIV:
                     eat(TokenCategory.DIV);
-                    res = Arithmetic.division(res, factor());
                     break;
                 default:
                     throw new ParsingException("Error when term-ing.");
             }
+            res = new BinaryOperationNode(res, t, factor());
         }
 
         return res;
     }
 
     @SuppressWarnings("unchecked")
-    private Integer factor()
+    private ASTNode factor()
     {
         Token<?> f = _currToken;
+        ASTNode node;
         switch (f.category())
         {
             case INTEGER:
                 eat(TokenCategory.INTEGER);
-                return (Integer) f.value();
+                return new NumberNode(f);
             case LPARENS:
                 eat(TokenCategory.LPARENS);
-                Integer res = expression();
+                node = expression();
                 eat(TokenCategory.RPARENS);
-                return res;
+                return node;
             default:
                 throw new ParsingException("Error when factorizing.");
 
