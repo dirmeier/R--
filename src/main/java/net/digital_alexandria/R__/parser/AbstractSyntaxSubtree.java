@@ -3,6 +3,6 @@ package net.digital_alexandria.r__.parser;
 /**
  * @author Simon Dirmeier {@literal mail@simon-dirmeier.net}
  */
-public abstract class ASTNode
+public abstract class AbstractSyntaxSubtree
 {
 }

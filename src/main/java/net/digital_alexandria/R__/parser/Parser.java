@@ -4,7 +4,6 @@ import net.digital_alexandria.r__.exceptions.ParsingException;
 import net.digital_alexandria.r__.lexer.Lexer;
 import net.digital_alexandria.r__.lexer.Token;
 import net.digital_alexandria.r__.lexer.TokenCategory;
-import net.digital_alexandria.r__.operators.Arithmetic;
 
 /**
  * @author Simon Dirmeier {@literal mail@simon-dirmeier.net}
@@ -30,15 +29,15 @@ public class Parser
         _currToken = _lexer.next();
     }
 
-    public ASTNode parse()
+    public AbstractSyntaxSubtree parse()
     {
         return expression();
     }
 
     @SuppressWarnings("unchecked")
-    private ASTNode expression()
+    private AbstractSyntaxSubtree expression()
     {
-        ASTNode root = term();
+        AbstractSyntaxSubtree root = term();
 
         while (_currToken.category() == TokenCategory.PLUS ||
                _currToken.category() == TokenCategory.MINUS)
@@ -62,9 +61,9 @@ public class Parser
     }
 
     @SuppressWarnings("unchecked")
-    private ASTNode term()
+    private AbstractSyntaxSubtree term()
     {
-        ASTNode res = factor();
+        AbstractSyntaxSubtree res = factor();
         while (_currToken.category() == TokenCategory.MULT ||
                _currToken.category() == TokenCategory.DIV)
         {
@@ -87,10 +86,10 @@ public class Parser
     }
 
     @SuppressWarnings("unchecked")
-    private ASTNode factor()
+    private AbstractSyntaxSubtree factor()
     {
         Token<?> f = _currToken;
-        ASTNode node;
+        AbstractSyntaxSubtree node;
         switch (f.category())
         {
             case INTEGER:
