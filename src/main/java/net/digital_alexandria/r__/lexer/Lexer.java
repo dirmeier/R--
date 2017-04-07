@@ -16,7 +16,7 @@ public final class Lexer
     private Token _currToken;
     private char _currChar;
 
-    private Lexer(){}
+    private Lexer() {}
 
     public static Lexer instance()
     {
@@ -35,29 +35,27 @@ public final class Lexer
     private String tokenize()
     {
         _currToken = next();
+        Integer res = term();
 
-        Token<Integer> lhs = _currToken;
-        eat(TokenCategory.INTEGER);
-
-        Token<?> op = _currToken;
-        eat(op.category() == TokenCategory.PLUS ?
-              TokenCategory.PLUS :
-              TokenCategory.MINUS);
-
-        Token<Integer> rhs = _currToken;
-        eat(TokenCategory.INTEGER);
-
-        switch (op.category())
+        while (_currToken.category() == TokenCategory.PLUS ||
+               _currToken.category() == TokenCategory.MINUS)
         {
-            case PLUS:
-                return String.valueOf(
-                  Arithmetic.addition(lhs.value(), rhs.value()));
-            case MINUS:
-                return String.valueOf(
-                  Arithmetic.substraction(lhs.value(), rhs.value()));
-            default:
-                throw new ParsingException("I dont know what to do.");
+            Token<?> t = _currToken;
+            switch (t.category())
+            {
+                case PLUS:
+                    eat(TokenCategory.PLUS);
+                    res = Arithmetic.addition(res, term());
+                    break;
+                case MINUS:
+                    eat(TokenCategory.MINUS);
+                    res = Arithmetic.substraction(res, term());
+                    break;
+                default:
+                    throw new ParsingException("I dont know what to do.");
+            }
         }
+        return String.valueOf(res);
     }
 
     private void eat(final TokenCategory category)
@@ -68,6 +66,7 @@ public final class Lexer
             throw new ParsingException("Could not eat text.");
     }
 
+    @SuppressWarnings("unchecked")
     private Token next()
     {
         while (_currChar != '$')
@@ -113,8 +112,15 @@ public final class Lexer
 
     private void skipWhitespace()
     {
-        char c = _currChar;
-        while (_currChar != '$' && c == ' ')
+        while (_currChar != '$' && _currChar == ' ')
             incrementPosition();
+    }
+
+    @SuppressWarnings("unchecked")
+    private Integer term()
+    {
+        Token<Integer> tok = this._currToken;
+        eat(TokenCategory.INTEGER);
+        return tok.value();
     }
 }
