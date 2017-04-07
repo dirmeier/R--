@@ -5,11 +5,11 @@ import net.digital_alexandria.r__.lexer.Token;
 /**
  * @author Simon Dirmeier {@literal mail@simon-dirmeier.net}
  */
-public final class NumberNode   extends AbstractSyntaxSubtree
+public final class NumberNode extends AbstractSyntaxSubtree
 {
     private final Token<?> _token;
 
-    public NumberNode(Token<?> token)
+    public NumberNode(final Token<?> token)
     {
         this._token = token;
     }
@@ -19,7 +19,4 @@ public final class NumberNode   extends AbstractSyntaxSubtree
     {
         return _token.value();
     }
-
-
-
 }

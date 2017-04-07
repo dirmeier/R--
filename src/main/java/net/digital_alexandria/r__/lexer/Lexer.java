@@ -21,7 +21,7 @@ public final class Lexer
         return new Lexer();
     }
 
-    public void init(String text)
+    public void init(final String text)
     {
         _text = text + END_CHAR;
         _pos = 0;

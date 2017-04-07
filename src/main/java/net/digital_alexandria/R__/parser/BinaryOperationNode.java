@@ -13,9 +13,9 @@ public final class BinaryOperationNode extends AbstractSyntaxSubtree
     private final AbstractSyntaxSubtree _rhs;
     private final Token<?> _token;
 
-    public BinaryOperationNode(AbstractSyntaxSubtree lhs,
-                               Token<?> t,
-                               AbstractSyntaxSubtree rhs)
+    public BinaryOperationNode(final AbstractSyntaxSubtree lhs,
+                               final Token<?> t,
+                               final AbstractSyntaxSubtree rhs)
     {
         this._lhs = lhs;
         this._rhs = rhs;

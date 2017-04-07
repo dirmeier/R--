@@ -8,22 +8,22 @@ import net.digital_alexandria.r__.lexer.TokenCategory;
 /**
  * @author Simon Dirmeier {@literal mail@simon-dirmeier.net}
  */
-public class Parser
+public final class Parser
 {
     private final Lexer _lexer;
     private Token _currToken;
 
-    private Parser(Lexer lexer)
+    private Parser(final Lexer lexer)
     {
         this._lexer = lexer;
     }
 
-    public static Parser instance(Lexer lexer)
+    public static Parser instance(final Lexer lexer)
     {
         return new Parser(lexer);
     }
 
-    public void init(String text)
+    public void init(final String text)
     {
         _lexer.init(text);
         _currToken = _lexer.next();
