@@ -2,10 +2,8 @@ package net.digital_alexandria.r__.interpreter;
 
 import net.digital_alexandria.r__.exceptions.ParsingException;
 import net.digital_alexandria.r__.lexer.Lexer;
-import net.digital_alexandria.r__.lexer.Token;
 import net.digital_alexandria.r__.parser.AbstractSyntaxSubtree;
 import net.digital_alexandria.r__.parser.Parser;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.NoSuchElementException;
 import java.util.Scanner;
@@ -89,7 +87,6 @@ public final class Interpreter
     {
         _parser.init(text);
         AbstractSyntaxSubtree node = _parser.parse();
-        return String.valueOf(_parser.parse());
+        return String.valueOf(node.traverse());
     }
-
 }
