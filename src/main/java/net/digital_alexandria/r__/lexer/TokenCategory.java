@@ -9,6 +9,12 @@ public enum TokenCategory
     MINUS,
     DIV,
     MULT,
-    EOF,
-    INTEGER
+
+    INTEGER,
+    NUMERIC,
+
+    LPARENS,
+    RPARENS,
+
+    EOF
 }

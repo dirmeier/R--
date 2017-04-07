@@ -34,8 +34,11 @@ public final class Lexer
         while (_currChar != '$')
         {
             if (Character.isSpaceChar(_currChar))
+            {
                 skipWhitespace();
-            else if (Character.isDigit(_currChar))
+                continue;
+            }
+            if (Character.isDigit(_currChar))
                 return new Token(TokenCategory.INTEGER, toInt());
             else if (_currChar == '+')
             {
@@ -56,6 +59,16 @@ public final class Lexer
             {
                 incrementPosition();
                 return new Token(TokenCategory.DIV, '/');
+            }
+            else if (_currChar == '(')
+            {
+                incrementPosition();
+                return new Token(TokenCategory.LPARENS, '(');
+            }
+            else if (_currChar == ')')
+            {
+                incrementPosition();
+                return new Token(TokenCategory.RPARENS, ')');
             }
             throw new ParsingException("Could not take next token.");
         }
@@ -84,7 +97,7 @@ public final class Lexer
 
     private void skipWhitespace()
     {
-        while (_currChar != '$' && _currChar == ' ')
+        while (_currChar != '$' && Character.isSpaceChar(_currChar))
             incrementPosition();
     }
 

@@ -90,10 +90,10 @@ public final class Interpreter
     {
         _lexer.init(text);
         _currToken = _lexer.next();
-        return expression();
+        return String.valueOf(expression());
     }
 
-    private String expression()
+    private Integer expression()
     {
         Integer res = term();
 
@@ -116,7 +116,7 @@ public final class Interpreter
             }
         }
 
-        return String.valueOf(res);
+        return res;
     }
 
     private void eat(final TokenCategory category)
@@ -130,9 +130,21 @@ public final class Interpreter
     @SuppressWarnings("unchecked")
     private Integer factor()
     {
-        Token<Integer> f = _currToken;
-        eat(TokenCategory.INTEGER);
-        return f.value();
+        Token<?> f = _currToken;
+        switch (f.category())
+        {
+            case INTEGER:
+                eat(TokenCategory.INTEGER);
+                return (Integer) f.value();
+            case LPARENS:
+                eat(TokenCategory.LPARENS);
+                Integer res = expression();
+                eat(TokenCategory.RPARENS);
+                return res;
+            default:
+                throw new ParsingException("Error when factorizing.");
+
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -154,7 +166,7 @@ public final class Interpreter
                     res = Arithmetic.division(res, factor());
                     break;
                 default:
-                    throw new ParsingException("I dont know what to do.");
+                    throw new ParsingException("Error when term-ing.");
             }
         }
 
