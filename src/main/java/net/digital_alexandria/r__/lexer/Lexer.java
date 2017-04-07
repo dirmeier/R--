@@ -1,6 +1,5 @@
 package net.digital_alexandria.r__.lexer;
 
-import net.digital_alexandria.r__.operators.Arithmetic;
 import net.digital_alexandria.r__.exceptions.ParsingException;
 
 /**
@@ -13,7 +12,6 @@ public final class Lexer
 
     private String _text;
     private int _pos;
-    private Token _currToken;
     private char _currChar;
 
     private Lexer() {}
@@ -23,51 +21,15 @@ public final class Lexer
         return new Lexer();
     }
 
-    public final String tokenize(final String text)
+    public void init(String text)
     {
         _text = text + END_CHAR;
         _pos = 0;
-        _currToken = null;
         _currChar = _text.charAt(_pos);
-        return tokenize();
-    }
-
-    private String tokenize()
-    {
-        _currToken = next();
-        Integer res = term();
-
-        while (_currToken.category() == TokenCategory.PLUS ||
-               _currToken.category() == TokenCategory.MINUS)
-        {
-            Token<?> t = _currToken;
-            switch (t.category())
-            {
-                case PLUS:
-                    eat(TokenCategory.PLUS);
-                    res = Arithmetic.addition(res, term());
-                    break;
-                case MINUS:
-                    eat(TokenCategory.MINUS);
-                    res = Arithmetic.substraction(res, term());
-                    break;
-                default:
-                    throw new ParsingException("I dont know what to do.");
-            }
-        }
-        return String.valueOf(res);
-    }
-
-    private void eat(final TokenCategory category)
-    {
-        if (_currToken.category() == category)
-            _currToken = next();
-        else
-            throw new ParsingException("Could not eat text.");
     }
 
     @SuppressWarnings("unchecked")
-    private Token next()
+    public Token next()
     {
         while (_currChar != '$')
         {
@@ -84,6 +46,16 @@ public final class Lexer
             {
                 incrementPosition();
                 return new Token(TokenCategory.MINUS, '-');
+            }
+            else if (_currChar == '*')
+            {
+                incrementPosition();
+                return new Token(TokenCategory.MULT, '*');
+            }
+            else if (_currChar == '/')
+            {
+                incrementPosition();
+                return new Token(TokenCategory.DIV, '/');
             }
             throw new ParsingException("Could not take next token.");
         }
@@ -116,11 +88,5 @@ public final class Lexer
             incrementPosition();
     }
 
-    @SuppressWarnings("unchecked")
-    private Integer term()
-    {
-        Token<Integer> tok = this._currToken;
-        eat(TokenCategory.INTEGER);
-        return tok.value();
-    }
+
 }

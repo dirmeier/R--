@@ -7,6 +7,8 @@ public enum TokenCategory
 {
     PLUS,
     MINUS,
+    DIV,
+    MULT,
     EOF,
     INTEGER
 }
