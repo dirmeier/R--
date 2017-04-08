@@ -11,7 +11,7 @@ An interpreter for R in Java.
 
 ## Introduction
 
-A toy implementation of an interpreter for `R` written in `Java`. This project is mainly to understand how interpreters, lexers/tokenizers, parsers, ASTs and things like that work. Since `R` and `Java` are the greatest languages of all time, I chose to try it on these. However the lexer of course can translate to any language. I'll try to cover:
+A toy implementation of an interpreter for `R` written in `Java`. This project is mainly to understand how interpreters, lexers/tokenizers, parsers, ASTs and things like that work exactly. Since `R` and `Java` are the greatest languages of all time, I chose to try it on these. However the lexer of course can translate to any language. I'll try to cover:
 
 * <strike>basic arithmetic</strike>,
 * functions,
