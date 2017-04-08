@@ -1,6 +1,6 @@
 <h1 align="center"> R-- </h1>
 
-[![Project Status](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active)
+[![Project Status](http://www.repostatus.org/badges/latest/wip.svg)](http://www.repostatus.org/#wip)
 [![Build Status](https://travis-ci.org/dirmeier/R--.svg?branch=master)](https://travis-ci.org/dirmeier/R--)
 [![codecov](https://codecov.io/gh/dirmeier/R--/branch/master/graph/badge.svg)](https://codecov.io/gh/dirmeier/R--)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/14653f9754cb40408ad614b305fb0c5d)](https://www.codacy.com/app/simon-dirmeier/R--?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=dirmeier/R--&amp;utm_campaign=Badge_Grade)
