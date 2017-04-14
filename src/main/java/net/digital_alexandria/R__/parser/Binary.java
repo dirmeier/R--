@@ -7,15 +7,15 @@ import net.digital_alexandria.r__.operators.Arithmetic;
 /**
  * @author Simon Dirmeier {@literal mail@simon-dirmeier.net}
  */
-public final class BinaryOperationNode extends AbstractSyntaxSubtree
+public final class Binary extends AbstractSyntaxSubtree
 {
     private final AbstractSyntaxSubtree _lhs;
     private final AbstractSyntaxSubtree _rhs;
     private final Token<?> _token;
 
-    public BinaryOperationNode(final AbstractSyntaxSubtree lhs,
-                               final Token<?> t,
-                               final AbstractSyntaxSubtree rhs)
+    public Binary(final AbstractSyntaxSubtree lhs,
+                  final Token<?> t,
+                  final AbstractSyntaxSubtree rhs)
     {
         this._lhs = lhs;
         this._rhs = rhs;

@@ -54,7 +54,7 @@ public final class Parser
                 default:
                     throw new ParsingException("I dont know what to do.");
             }
-            root = new BinaryOperationNode(root, t, term());
+            root = new Binary(root, t, term());
         }
 
         return root;
@@ -79,7 +79,7 @@ public final class Parser
                 default:
                     throw new ParsingException("Error when term-ing.");
             }
-            res = new BinaryOperationNode(res, t, factor());
+            res = new Binary(res, t, factor());
         }
 
         return res;
@@ -92,6 +92,12 @@ public final class Parser
         AbstractSyntaxSubtree node;
         switch (f.category())
         {
+            case PLUS:
+                eat(TokenCategory.PLUS);
+                return new Unary(f, factor());
+            case MINUS:
+                eat(TokenCategory.MINUS);
+                return new Unary(f, factor());
             case INTEGER:
                 eat(TokenCategory.INTEGER);
                 return new NumberNode(f);
