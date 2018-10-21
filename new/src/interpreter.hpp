@@ -10,14 +10,8 @@
 #include <iostream>
 #include <string>
 
+#include "parser.hpp"
 #include "parsing_exception.hpp"
-
-static const char* DISCLAIMER =
-  "\nWelcome to R-- v0.1 ('It's Alive').\n\n" \
-  "R-- is a slower, experimental implementation of R in C++.\n" \
-  "Be aware of bugs and minimal functionality.\n" \
-  "If you are brave enough you can contribute.\n\n" \
-  "Ctrl+C to quit! Good luck.\n\n";
 
 class interpreter
 {
@@ -29,41 +23,21 @@ public:
     }
 
     interpreter(interpreter const&) = delete;
+
     void operator=(interpreter const&) = delete;
 
-    void run()
-    {
-        bool is_first = true;
-        bool exec = true;
-        std::string line;
-        while (exec)
-        {
-            if (is_first)
-            {
-                std::cout << DISCLAIMER << std::endl;
-                is_first = false;
-            }
-            std::cout << "R-- > ";
+    void run();
 
-            std::getline(std::cin, line);
-            if (line.empty()) exec = false;
-            else
-            {
-                try
-                {
-                    std::cout << line << std::endl;
-                    throw parsing_exception("whoops");
-                }
-                catch (parsing_exception& e)
-                {
-                    std::cerr << e.what() << std::endl;
-                }
-            }
-        }
-    }
+    static const char* DISCLAIMER;
 
 private:
-    interpreter() = default;
+    std::string interpret(std::string& text);
+
+    //interpreter(): parser_(parser::instance(lexer::instance())){};
+
+    interpreter(): parser_() {}
+
+    parser parser_;
 };
 
 #endif //R_INTERPRETER_HPP

@@ -17,13 +17,20 @@ include(FeatureSummary)
 include(CTest)
 
 set(SOURCE_FILES
-        src/interpreter.hpp
-        src/parsing_exception.hpp
+        src/ast.cpp
+        src/binary.cpp
+        src/interpreter.cpp
+        src/lexer.cpp
+        src/number_node.cpp
+        src/parser.cpp
+        src/token.cpp
+        src/token_category.hpp
+        src/unary.cpp
         src/main.cpp)
 
-add_executable(r-- ${SOURCE_FILES})
-target_compile_options(r-- PUBLIC -Wall)
-install(TARGETS r-- DESTINATION ${CMAKE_INSTALL_BINDIR})
+add_executable(R-- ${SOURCE_FILES})
+target_compile_options(R-- PUBLIC -Wall)
+install(TARGETS R-- DESTINATION ${CMAKE_INSTALL_BINDIR})
 
 feature_summary(WHAT ALL)
 
