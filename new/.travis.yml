@@ -1,0 +1,76 @@
+language: cpp
+sudo: required
+
+matrix:
+  include:
+    - os: linux
+      compiler: gcc
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+          packages:
+            - g++-4.8
+      env: COMPILER=g++-4.8
+
+    - os: linux
+      compiler: gcc
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+          packages:
+            - g++-7
+      env: COMPILER=g++-7
+
+    - os: osx
+      compiler: clang
+      env: COMPILER=clang++
+
+    - os: osx
+      compiler: clang
+      env: COMPILER=clang++-5
+
+ addons:
+   apt:
+     packages:
+       - libboost-all-dev
+       - cmake
+       - ninja-build
+       - scan-build
+
+before_install:
+  - |
+    export CXX="${COMPILER}";
+    if [[ ${TRAVIS_OS_NAME} == "osx" ]]; then
+      brew update;
+      brew install ninja;
+      brew upgrade boost cmake python;
+
+      if [[ ${COMPILER} == "clang++-5" ]]; then
+        brew install llvm@5;
+        export CXX="clang++";
+        export PATH="/usr/local/opt/llvm@5/bin:${PATH}";
+        export LIBS="-L/usr/local/opt/llvm@5/lib";
+      else
+        export ENABLE_OPENMP="false";
+      fi
+    elif [[ ${TRAVIS_OS_NAME} == "linux" ]]; then
+      sudo apt-get update;
+      sudo apt-get install -y autoconf automake libboost-all-dev cmake;
+
+      wget https://github.com/ninja-build/ninja/releases/download/v1.7.2/ninja-linux.zip;
+      unzip -q ninja-linux.zip -d tools;
+      export PATH="${PWD}/tools:${PATH}";
+
+      source ~/virtualenv/python3.6/bin/activate;
+    fi;
+    pip3 install meson;
+
+script:
+  - DFLAGS="${LIBS}" meson -Db_coverage=true build-meson && ninja -C build-meson -v && ninja -C build-meson -v test
+
+after_success:
+  - ninja
+  - ninja coverage-html && ninja coverage-xml
+  - bash <(curl -s https://codecov.io/bash)
