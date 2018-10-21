@@ -18,6 +18,7 @@ include(CTest)
 
 set(SOURCE_FILES
         src/interpreter.hpp
+        src/parsing_exception.hpp
         src/main.cpp)
 
 add_executable(r-- ${SOURCE_FILES})

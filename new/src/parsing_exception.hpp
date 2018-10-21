@@ -7,22 +7,21 @@
 #ifndef R_PARSING_EXCEPTION_HPP
 #define R_PARSING_EXCEPTION_HPP
 
-#include <iostream>
 #include <exception>
 
-class parsing_exception: public exception
+class parsing_exception: public std::exception
 {
 public:
 
-    parsing_exception(const char* msg): what(msg)
-    parsing_exception(): what("")
+    parsing_exception(const char* msg): what_(msg) {}
+    parsing_exception(): what_("") {}
 
-    const char* what(const char* what) const throw()
+    const char* what() const throw()
     {
-        return what;
+        return what_;
     }
 private:
-    const char* what;
+    const char* what_;
 };
 
 #endif //R_PARSING_EXCEPTION_HPP

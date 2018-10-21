@@ -7,8 +7,10 @@
 #ifndef R_INTERPRETER_HPP
 #define R_INTERPRETER_HPP
 
-#include <string>
 #include <iostream>
+#include <string>
+
+#include "parsing_exception.hpp"
 
 static const char* DISCLAIMER =
   "\nWelcome to R-- v0.1 ('It's Alive').\n\n" \
@@ -50,6 +52,7 @@ public:
                 try
                 {
                     std::cout << line << std::endl;
+                    throw parsing_exception("whoops");
                 }
                 catch (parsing_exception& e)
                 {
