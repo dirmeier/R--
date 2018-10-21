@@ -16,7 +16,8 @@
 class interpreter
 {
 public:
-    static interpreter& instance()
+
+    const static interpreter& instance()
     {
         static thread_local interpreter instance;
         return instance;
@@ -26,12 +27,14 @@ public:
 
     void operator=(interpreter const&) = delete;
 
-    void run();
+    void run() const;
 
     static const char* DISCLAIMER;
 
 private:
-    std::string interpret(std::string& text);
+    std::string interpret(std::string& text) const;
+
+    std::string expression(std::string& text) const;
 
     //interpreter(): parser_(parser::instance(lexer::instance())){};
 

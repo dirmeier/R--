@@ -1,16 +1,21 @@
 #include "interpreter.hpp"
 
 
-std::string interpreter::interpret(const std::string& text)
+std::string interpreter::interpret(std::string& text) const
 {
-    parser.init(text);
+    return expression(text);
+}
+
+
+std::string interpreter::expression(std::string& text) const
+{
+    parser_.init(text);
     //bstractSyntaxSubtree node = _parser.parse();
     //return String.valueOf(node.traverse());
     return "";
 }
 
-
-void interpreter::run()
+void interpreter::run() const
 {
     bool is_first = true;
     bool exec = true;
@@ -34,7 +39,6 @@ void interpreter::run()
         }
     }
 }
-
 const char* interpreter::DISCLAIMER = "\nWelcome to R-- v0.1 ('It's Alive').\n\n" \
   "R-- is a slower, experimental implementation of R in C++.\n" \
   "Be aware of bugs and minimal functionality.\n" \

@@ -1,28 +1,35 @@
 
 #include "parser.hpp"
 
-void parser::init(const std::string&)
+void parser::init(const std::string& text) const
 {
-
+    lexer_.init(text);
+    token_ = lexer_.next();
 }
 
-ast parser::parse()
+ast parser::parse() const
 {
-    return nullptr;
+    return expression();
 }
-ast parser::factor()
+
+ast parser::expression() const
 {
-    return nullptr;
+//    ast root = term();
+
+    return ast();
 }
-ast parser::term()
+
+ast parser::factor() const
 {
-    return nullptr;
+    return ast();
 }
-ast parser::expression()
+
+ast parser::term() const
 {
-    return nullptr;
+    return ast();
 }
-void parser::eat(const token_category& category)
+
+void parser::eat(const token_category& category) const
 {
 
 }

@@ -15,6 +15,7 @@
 #include "parser.hpp"
 #include "parsing_exception.hpp"
 #include "token.hpp"
+#include "token_category.hpp"
 
 class parser
 {
@@ -22,21 +23,20 @@ public:
     parser(): lexer_()
     {}
 
-    void init(const std::string&);
+    void init(const std::string&) const;
 
-    ast parse();
+    ast parse() const;
 
 private:
 
-    ast expression();
-    ast term();
-    ast factor();
+    ast expression() const;
+    ast term() const;
+    ast factor() const;
 
-    void eat(const token_category& category);
-
+    void eat(const token_category& category) const;
 
     const lexer lexer_;
-    token token_;
+    mutable token token_;
 };
 
 
