@@ -16,7 +16,7 @@ public:
     parsing_exception(const char* msg): what_(msg) {}
     parsing_exception(): what_("") {}
 
-    const char* what() const throw()
+    const char* what() const noexcept
     {
         return what_;
     }
