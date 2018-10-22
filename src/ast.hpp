@@ -5,9 +5,8 @@
 class ast
 {
 public:
-    ast()
-    {}
+    template<typename T>
+    T traverse();
 };
-
 
 #endif //R_AST_HPP

@@ -2,11 +2,21 @@
 #ifndef R_TOKEN_CATEGORY_HPP
 #define R_TOKEN_CATEGORY_HPP
 
-class token_category
+enum class token_category
 {
-public:
-    token_category()
-    {}
+
+    PLUS,
+    MINUS,
+    DIV,
+    MULT,
+
+    INTEGER,
+    NUMERIC,
+
+    LPARENS,
+    RPARENS,
+
+    EOF
 };
 
 
