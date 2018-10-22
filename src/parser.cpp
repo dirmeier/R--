@@ -1,6 +1,7 @@
 
-#include "parser.hpp"
 #include "binary.hpp"
+#include "parser.hpp"
+#include "unary.hpp"
 
 void parser::init(const std::string& text) const
 {
@@ -41,23 +42,23 @@ ast parser::expression() const
 
 ast parser::term() const
 {
-    AbstractSyntaxSubtree res = factor();
-    while (_currToken.category() == TokenCategory.MULT ||
-           _currToken.category() == TokenCategory.DIV)
+    ast res = factor();
+    while (token_.category() == token_category::MULT ||
+           token_.category() == token_category::DIV)
     {
-        Token<?> t = _currToken;
+        token t = token_;
         switch (t.category())
         {
-            case MULT:
-                eat(TokenCategory.MULT);
+            case token_category::MULT:
+                eat(token_category::MULT);
                 break;
-            case DIV:
-                eat(TokenCategory.DIV);
+            case token_category::DIV:
+                eat(token_category::DIV);
                 break;
             default:
-                throw new ParsingException("Error when term-ing.");
+                throw parsing_exception("Error when term-ing.");
         }
-        res = new Binary(res, t, factor());
+        res = binary(res, t, factor());
     }
 
     return res;
@@ -65,16 +66,16 @@ ast parser::term() const
 
 ast parser::factor() const
 {
-    Token<?> f = _currToken;
-    AbstractSyntaxSubtree node;
+    token f = token_;
+    ast node;
     switch (f.category())
     {
-        case PLUS:
-            eat(TokenCategory.PLUS);
-            return new Unary(f, factor());
-        case MINUS:
-            eat(TokenCategory.MINUS);
-            return new Unary(f, factor());
+        case token_category::PLUS:
+            eat(token_category::PLUS);
+            return unary(f, factor());
+        case token_category::MINUS:
+            eat(token_category::MINUS);
+            return unary(f, factor());
         case INTEGER:
             eat(TokenCategory.INTEGER);
             return new NumberNode(f);
@@ -84,15 +85,15 @@ ast parser::factor() const
             eat(TokenCategory.RPARENS);
             return node;
         default:
-            throw new ParsingException("Error when factorizing.");
+            throw  parsing_exception("Error when factorizing.");
 
     }
 }
 
 void parser::eat(const token_category& category) const
 {
-    if (_currToken.category() == category)
-        _currToken = _lexer.next();
+    if (token_.category() == category)
+        token_ = lexer_.next();
     else
-        throw new ParsingException("Could not eat text.");
+        throw parsing_exception("Could not eat text.");
 }

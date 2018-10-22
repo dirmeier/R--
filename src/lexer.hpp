@@ -23,7 +23,7 @@ public:
 
 private:
     void increment_position()  const;
-    unsigned int to_int()  const;
+    int to_int()  const;
     void skip_whitespace()  const;
 
     static const char END_CHAR;

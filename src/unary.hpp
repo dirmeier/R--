@@ -9,12 +9,12 @@
 class unary: public ast
 {
 public:
-    template<typename T>
-    unary(ast& expr, const token<T>& token):
+
+    unary(ast& expression, const token& token):
       token_(token), expression_(expression)
     {}
 
-    T traverse()
+    int traverse()
     {
         int times = -1;
         switch (token_.category())
@@ -30,7 +30,7 @@ public:
 
 private:
     const ast expression_;
-    template const token<typename T> token_;
+    const token token_;
 };
 
 #endif //R_NODE_HPP

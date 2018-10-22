@@ -1,5 +1,8 @@
 
+#include <cctype>
+
 #include "lexer.hpp"
+#include "parsing_exception.hpp"
 
 const char lexer::END_CHAR = '$';
 
@@ -12,72 +15,72 @@ void lexer::init(const std::string& text) const
 
 token lexer::next()  const
 {
-    while (_currChar != '$')
+    while (current_char_ != '$')
     {
-        if (Character.isSpaceChar(_currChar))
+        if (current_char_ == ' ')
         {
-            skipWhitespace();
+            skip_whitespace();
             continue;
         }
-        if (Character.isDigit(_currChar))
-            return new Token(TokenCategory.INTEGER, toInt());
-        else if (_currChar == '+')
+        if (isdigit(current_char_))
+            return token(token_category::INTEGER, to_int());
+        else if (current_char_ == '+')
         {
-            incrementPosition();
-            return new Token(TokenCategory.PLUS, '+');
+            increment_position();
+            return token(token_category::PLUS, '+');
         }
-        else if (_currChar == '-')
+        else if (current_char_ == '-')
         {
-            incrementPosition();
-            return new Token(TokenCategory.MINUS, '-');
+            increment_position();
+            return token(token_category::MINUS, '-');
         }
-        else if (_currChar == '*')
+        else if (current_char_ == '*')
         {
-            incrementPosition();
-            return new Token(TokenCategory.MULT, '*');
+            increment_position();
+            return token(token_category::MULT, '*');
         }
-        else if (_currChar == '/')
+        else if (current_char_ == '/')
         {
-            incrementPosition();
-            return new Token(TokenCategory.DIV, '/');
+            increment_position();
+            return token(token_category::DIV, '/');
         }
-        else if (_currChar == '(')
+        else if (current_char_ == '(')
         {
-            incrementPosition();
-            return new Token(TokenCategory.LPARENS, '(');
+            increment_position();
+            return token(token_category::LPARENS, '(');
         }
-        else if (_currChar == ')')
+        else if (current_char_ == ')')
         {
-            incrementPosition();
-            return new Token(TokenCategory.RPARENS, ')');
+            increment_position();
+            return token(token_category::RPARENS, ')');
         }
-        throw new ParsingException("Could not take next token.");
+        throw parsing_exception("Could not take next token.");
     }
-    return new Token(TokenCategory.EOF, -1);
+    return token(token_category::EOF, -1);
 }
 
 void lexer::skip_whitespace()  const
 {
-    while (_currChar != '$' && Character.isSpaceChar(_currChar))
-        incrementPosition();
+    while (current_char_ != '$' && current_char_ == ' ')
+        increment_position();
 }
 
 void lexer::increment_position()  const
 {
-    _pos++;
-    if (this._pos > _text.length() - 1)
-        _currChar = '$';
+    position_++;
+    if (position_ > text_.size() - 1)
+        current_char_ = '$';
     else
-        _currChar = this._text.charAt(this._pos);
+        current_char_ = text_[position_];
 }
 
-unsigned int lexer::to_int()  const
+int lexer::to_int()  const
 {
-    StringBuilder res = new StringBuilder();
-    while (_currChar != '$' && Character.isDigit(_currChar))
+    std::string res;
+    while (current_char_ != '$' && isdigit(current_char_))
     {
-        res.append(_currChar);
-        incrementPosition();
+        res += current_char_;
+        increment_position();
     }
-    return Integer.parseInt(res.toString());
+    return static_cast<int>(res);
 }
