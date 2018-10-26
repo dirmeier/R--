@@ -9,14 +9,11 @@ enum class token_category
     MINUS,
     DIV,
     MULT,
-
     INTEGER,
     NUMERIC,
-
     LPARENS,
     RPARENS,
-
-    EOF
+    END
 };
 
 

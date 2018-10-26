@@ -9,9 +9,8 @@
 class binary: public ast
 {
 public:
-    template<typename T>
-    binary(ast& lhs, ast& rhs, const token<T>& token):
-      lhs_(lhs), rhs_(rhs), token_(t)
+    binary(ast& lhs, ast& rhs, const token& token):
+      lhs_(lhs), rhs_(rhs), token_(token)
     {}
 
     T traverse()
@@ -37,8 +36,7 @@ public:
 private:
     const ast lhs_;
     const ast rhs_;
-    const token>
-    token_;
+    const token token_;
 };
 
 #endif //R_BINARY_HPP

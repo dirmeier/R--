@@ -2,7 +2,9 @@
 #include <cctype>
 
 #include "lexer.hpp"
+#include "node.hpp"
 #include "parsing_exception.hpp"
+#include "token_category.hpp"
 
 const char lexer::END_CHAR = '$';
 
@@ -23,40 +25,40 @@ token lexer::next()  const
             continue;
         }
         if (isdigit(current_char_))
-            return token(token_category::INTEGER, to_int());
+            return token(token_category::INTEGER, node<int>(to_int()));
         else if (current_char_ == '+')
         {
             increment_position();
-            return token(token_category::PLUS, '+');
+            return token(token_category::PLUS, node<char>('+'));
         }
         else if (current_char_ == '-')
         {
             increment_position();
-            return token(token_category::MINUS, '-');
+            return token(token_category::MINUS, node<char>('-'));
         }
         else if (current_char_ == '*')
         {
             increment_position();
-            return token(token_category::MULT, '*');
+            return token(token_category::MULT, node<char>('*'));
         }
         else if (current_char_ == '/')
         {
             increment_position();
-            return token(token_category::DIV, '/');
+            return token(token_category::DIV, node<char>('/'));
         }
         else if (current_char_ == '(')
         {
             increment_position();
-            return token(token_category::LPARENS, '(');
+            return token(token_category::LPARENS, node<char>('('));
         }
         else if (current_char_ == ')')
         {
             increment_position();
-            return token(token_category::RPARENS, ')');
+            return token(token_category::RPARENS, node<char>(')'));
         }
         throw parsing_exception("Could not take next token.");
     }
-    return token(token_category::EOF, -1);
+    return token(token_category::END, node<int>(-1));
 }
 
 void lexer::skip_whitespace()  const
@@ -76,7 +78,7 @@ void lexer::increment_position()  const
 
 int lexer::to_int()  const
 {
-    std::string res;
+    std::string res = "";
     while (current_char_ != '$' && isdigit(current_char_))
     {
         res += current_char_;

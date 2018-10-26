@@ -20,8 +20,10 @@
 class parser
 {
 public:
-    parser(const lexer& lexer): lexer_(lexer)
-    {}
+
+    parser(): token_(){
+
+    }
 
     void init(const std::string&) const;
 

@@ -17,15 +17,10 @@ include(FeatureSummary)
 include(CTest)
 
 set(SOURCE_FILES
-        src/ast.cpp
-        src/binary.cpp
+        src/arithmetic.cpp
         src/interpreter.cpp
-        src/lexer.cpp
-        src/number_node.cpp
+#        src/lexer.cpp
         src/parser.cpp
-        src/token.cpp
-        src/token_category.hpp
-        src/unary.cpp
         src/main.cpp)
 
 add_executable(R-- ${SOURCE_FILES})
