@@ -20,21 +20,9 @@ find_package(Boost)
 
 set(SOURCE_FILES
         src/arithmetic.cpp
-        src/arithmetic.hpp
-        src/ast.hpp
-        src/binary.hpp
         src/interpreter.cpp
-        src/interpreter.hpp
         src/lexer.cpp
-        src/lexer.hpp
-        src/node.hpp
-        src/number_node.hpp
         src/parser.cpp
-        src/parser.hpp
-        src/parsing_exception.hpp
-        src/token.hpp
-        src/token_category.hpp
-        src/unary.hpp
         src/main.cpp)
 
 add_executable(R-- ${SOURCE_FILES})
