@@ -1,5 +1,7 @@
 #include "interpreter.hpp"
 
+#include <boost/any.hpp>
+#include "ast.hpp"
 
 std::string interpreter::interpret(std::string& text) const
 {
@@ -10,9 +12,8 @@ std::string interpreter::interpret(std::string& text) const
 std::string interpreter::expression(std::string& text) const
 {
     parser_.init(text);
-    //bstractSyntaxSubtree node = _parser.parse();
-    //return String.valueOf(node.traverse());
-    return "";
+    ast* node = parser_.parse();
+    return boost::any_cast<std::string>(node->traverse());
 }
 
 void interpreter::run() const

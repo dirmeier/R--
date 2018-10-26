@@ -21,25 +21,23 @@ class parser
 {
 public:
 
-    parser(): token_(){
-
-    }
+    parser(): lexer_(), token_()
+    {}
 
     void init(const std::string&) const;
 
-    ast parse() const;
+    ast* parse() const;
 
 private:
 
-    ast expression() const;
-    ast term() const;
-    ast factor() const;
+    ast* expression() const;
+    ast* term() const;
+    ast* factor() const;
 
     void eat(const token_category& category) const;
 
     const lexer lexer_;
     mutable token token_;
 };
-
 
 #endif //R_PARSER_HPP

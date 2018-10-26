@@ -36,8 +36,6 @@ private:
 
     std::string expression(std::string& text) const;
 
-    //interpreter(): parser_(parser::instance(lexer::instance())){};
-
     interpreter(): parser_() {}
 
     parser parser_;

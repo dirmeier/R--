@@ -13,7 +13,7 @@ class unary: public ast
 {
 public:
 
-    unary( ast& expression,  token token):
+    unary(ast* expression, token token):
       expression_(expression), token_(token)
     {}
 
@@ -25,14 +25,14 @@ public:
             case token_category::PLUS:
                 times = 1;
             case token_category::MINUS:
-                return times * boost::any_cast<int>(expression_.traverse());
+                return times * boost::any_cast<int>(expression_->traverse());
             default:
                 throw parsing_exception("Could not traverse AST");
         }
     }
 
 private:
-     ast expression_;
+     ast* expression_;
      token token_;
 };
 

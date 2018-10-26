@@ -13,14 +13,14 @@
 class binary: public ast
 {
 public:
-    binary( ast& lhs,  ast& rhs,  token token):
+    binary(ast* lhs,  ast* rhs,  token token):
       lhs_(lhs), rhs_(rhs), token_(token)
     {}
 
     boost::any traverse()
     {
-        int l = lhs_.traverse();
-        int r = boost::any_cast<int>(rhs_.traverse();
+        int l =  boost::any_cast<int>(lhs_->traverse());
+        int r = boost::any_cast<int>(rhs_->traverse());
         switch (token_.category())
         {
 
@@ -38,8 +38,8 @@ public:
     }
 
 private:
-     ast lhs_;
-     ast rhs_;
+     ast* lhs_;
+     ast* rhs_;
      token token_;
 };
 
