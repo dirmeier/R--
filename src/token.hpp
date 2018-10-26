@@ -2,6 +2,9 @@
 #ifndef R_TOKEN_HPP
 #define R_TOKEN_HPP
 
+#include <utility>
+#include <boost/any.hpp>
+
 #include "node.hpp"
 #include "token_category.hpp"
 
@@ -12,16 +15,16 @@ class token
 public:
     token() = default;
 
-    token(const token_category& category, const node& value):
-      category_(category), node_(value)
+    token(token_category category, boost::any value):
+      category_(category), value_(value)
     {}
 
-    const token_category& category() const
+    const token_category category() const
     {
         return category_;
     }
 
-    const node value() const
+    const boost::any value() const
     {
         return value_;
     }
@@ -29,7 +32,7 @@ public:
 
 private:
     token_category category_;
-    node value_;
+    boost::any value_;
 };
 
 

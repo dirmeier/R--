@@ -1,14 +1,15 @@
 
 
 #include <memory>
-//#include "binary.hpp"
+#include "binary.hpp"
+#include "number_node.hpp"
 #include "parser.hpp"
 #include "unary.hpp"
 
 void parser::init(const std::string& text) const
 {
-//    lexer_.init(text);
-//    token_ = lexer_.next();
+    lexer_.init(text);
+    token_ = lexer_.next();
 }
 
 ast parser::parse() const
@@ -71,28 +72,28 @@ ast parser::term() const
 
 ast parser::factor() const
 {
-//    token f = token_;
-//    ast node;
-//    switch (f.category())
-//    {
-//        case token_category::PLUS:
-//            eat(token_category::PLUS);
-//            return unary(f, factor());
-//        case token_category::MINUS:
-//            eat(token_category::MINUS);
-//            return unary(f, factor());
-//        case token_category::INTEGER:
-//            eat(token_category::INTEGER);
-//            return number_node(f);
-////        case token_category::LPARENS:
-////            eat(TokenCategory.LPARENS);
-////            node = expression();
-////            eat(TokenCategory.RPARENS);
-////            return node;
-//        default:
-//            throw  parsing_exception("Error when factorizing.");
-//
-//    }
+    token f = token_;
+    ast node;
+    switch (f.category())
+    {
+        case token_category::PLUS:
+            eat(token_category::PLUS);
+            return unary(f, factor());
+        case token_category::MINUS:
+            eat(token_category::MINUS);
+            return unary(f, factor());
+        case token_category::INTEGER:
+            eat(token_category::INTEGER);
+            return number_node(f);
+        case token_category::LPARENS:
+            eat(token_category::LPARENS);
+            node = expression();
+            eat(token_category::RPARENS);
+            return node;
+        default:
+            throw  parsing_exception("Error when factorizing.");
+
+    }
     return ast();
 }
 

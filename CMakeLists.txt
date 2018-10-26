@@ -16,15 +16,21 @@ include(GNUInstallDirs)
 include(FeatureSummary)
 include(CTest)
 
+find_package(Boost)
+
 set(SOURCE_FILES
         src/arithmetic.cpp
         src/interpreter.cpp
-#        src/lexer.cpp
+        src/lexer.cpp
         src/parser.cpp
         src/main.cpp)
 
 add_executable(R-- ${SOURCE_FILES})
+
+target_include_directories(R-- PUBLIC ${Boost_INCLUDE_DIRS})
+target_link_libraries(R-- PUBLIC ${Boost_LIBRARIES})
 target_compile_options(R-- PUBLIC -Wall)
+
 install(TARGETS R-- DESTINATION ${CMAKE_INSTALL_BINDIR})
 
 feature_summary(WHAT ALL)

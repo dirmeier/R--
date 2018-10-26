@@ -18,13 +18,13 @@ public:
     lexer()
     {}
 
-    void init(const std::string&)  const;
-    token next()  const;
+    void init(const std::string&) const;
+    token next() const;
 
 private:
-    void increment_position()  const;
-    int to_int()  const;
-    void skip_whitespace()  const;
+    void increment_position() const;
+    int to_int() const;
+    void skip_whitespace() const;
 
     static const char END_CHAR;
 
