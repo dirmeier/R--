@@ -63,7 +63,7 @@ ast* parser::term() const
             default:
                 throw parsing_exception("Error when term-ing.");
         }
-        curr = std::unique_ptr<binary>( new binary(curr.get(), factor(), t));
+        curr = std::unique_ptr<binary>(new binary(curr.get(), factor(), t));
     }
 
     return curr.get();
@@ -77,16 +77,16 @@ ast* parser::factor() const
     {
         case token_category::PLUS:
             eat(token_category::PLUS);
-            return std::unique_ptr<unary>( new unary(factor(), f)).get();
+            return std::unique_ptr<unary>(new unary(factor(), f)).get();
         case token_category::MINUS:
             eat(token_category::MINUS);
-            return std::unique_ptr<unary>( new unary(factor(), f)).get();
+            return std::unique_ptr<unary>(new unary(factor(), f)).get();
         case token_category::INTEGER:
             eat(token_category::INTEGER);
-            return std::unique_ptr<number_node>( new number_node(f)).get();
+            return std::unique_ptr<number_node>(new number_node(f)).get();
         case token_category::LPARENS:
             eat(token_category::LPARENS);
-             node = std::unique_ptr<ast>(expression());
+            node = std::unique_ptr<ast>(expression());
             eat(token_category::RPARENS);
             return node.get();
         default:
