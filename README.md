@@ -9,7 +9,7 @@ An interpreter for R in C++.
 
 ![R--](https://github.com/dirmeier/R--/blob/master/_fig/demo.gif "R--")
 
-## Introduction
+## About
 
 This repository contains a toy implementation of an interpreter for `R` written in `C++`. 
 The project is mainly to understand how interpreters, lexers/tokenizers, parsers, ASTs and things like that work exactly. 
