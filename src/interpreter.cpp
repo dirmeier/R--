@@ -13,7 +13,8 @@ std::string interpreter::expression(std::string& text) const
 {
     parser_.init(text);
     ast* node = parser_.parse();
-    return boost::any_cast<std::string>(node->traverse());
+    int i = boost::any_cast<int>(node->traverse());
+    return std::to_string(i);
 }
 
 void interpreter::run() const

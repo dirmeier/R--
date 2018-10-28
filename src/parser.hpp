@@ -10,6 +10,7 @@
 
 #include <string>
 
+#include <memory>
 #include "ast.hpp"
 #include "lexer.hpp"
 #include "parser.hpp"
@@ -30,9 +31,9 @@ public:
 
 private:
 
-    ast* expression() const;
-    ast* term() const;
-    ast* factor() const;
+    std::unique_ptr<ast> expression() const;
+    std::unique_ptr<ast> term() const;
+    std::unique_ptr<ast> factor() const;
 
     void eat(const token_category& category) const;
 
