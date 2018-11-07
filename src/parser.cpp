@@ -14,12 +14,12 @@ void parser::init(const std::string& text) const
 
 ast* parser::parse() const
 {
-    return expression().get();
+    return expression();
 }
 
-std::unique_ptr<ast> parser::expression() const
+ast* parser::expression() const
 {
-    std::unique_ptr<ast> curr((term()));
+    ast* curr = term();
 
     while (token_.category() == token_category::PLUS ||
            token_.category() == token_category::MINUS)
@@ -37,15 +37,15 @@ std::unique_ptr<ast> parser::expression() const
                 throw parsing_exception("I dont know what to do.");
         }
 
-        curr = std::unique_ptr<binary>(new binary(curr.get(), term().get(), t));
+        curr = new binary(curr, term(), t);
     }
 
     return curr;
 }
 
-std::unique_ptr<ast> parser::term() const
+ast* parser::term() const
 {
-    std::unique_ptr<ast> curr((factor()));
+    ast* curr= factor();
 
     while (token_.category() == token_category::MULT ||
            token_.category() == token_category::DIV)
@@ -62,30 +62,30 @@ std::unique_ptr<ast> parser::term() const
             default:
                 throw parsing_exception("Error when term-ing.");
         }
-        curr = std::unique_ptr<binary>(new binary(curr.get(), factor().get(), t));
+        curr = new binary(curr, factor(), t);
     }
 
     return curr;
 }
 
-std::unique_ptr<ast> parser::factor() const
+ast* parser::factor() const
 {
     token f = token_;
-    std::unique_ptr<ast> node;
+    ast* node;
     switch (f.category())
     {
         case token_category::PLUS:
             eat(token_category::PLUS);
-            return std::unique_ptr<unary>(new unary(factor().get(), f));
+            return new unary(factor(), f);
         case token_category::MINUS:
             eat(token_category::MINUS);
-            return std::unique_ptr<unary>(new unary(factor().get(), f));
+            return new unary(factor(), f);
         case token_category::INTEGER:
             eat(token_category::INTEGER);
-            return std::unique_ptr<number_node>(new number_node(f));
+            return new number_node(f);
         case token_category::LPARENS:
             eat(token_category::LPARENS);
-            node = std::unique_ptr<ast>(expression());
+            node = expression();
             eat(token_category::RPARENS);
             return node;
         default:
