@@ -12,9 +12,9 @@ void parser::init(const std::string& text) const
     token_ = lexer_.next();
 }
 
-ast* parser::parse() const
+std::unique_ptr<ast> parser::parse() const
 {
-    return expression().get();
+    return expression();
 }
 
 std::unique_ptr<ast> parser::expression() const
@@ -37,10 +37,10 @@ std::unique_ptr<ast> parser::expression() const
                 throw parsing_exception("I dont know what to do.");
         }
 
-        curr = std::move(std::unique_ptr<binary>(new binary(curr.get(), term().get(), t)));
+        curr = std::unique_ptr<binary>(new binary(curr.get(), term().get(), t));
     }
 
-    return std::move(curr);
+    return curr;
 }
 
 std::unique_ptr<ast> parser::term() const
@@ -62,10 +62,10 @@ std::unique_ptr<ast> parser::term() const
             default:
                 throw parsing_exception("Error when term-ing.");
         }
-        curr = std::move(std::unique_ptr<binary>(new binary(curr.get(), factor().get(), t)));
+        curr = std::unique_ptr<binary>(new binary(curr.get(), factor().get(), t));
     }
 
-    return std::move(curr);
+    return curr;
 }
 
 std::unique_ptr<ast> parser::factor() const
@@ -76,18 +76,18 @@ std::unique_ptr<ast> parser::factor() const
     {
         case token_category::PLUS:
             eat(token_category::PLUS);
-            return std::move(std::unique_ptr<unary>(new unary(factor().get(), f)));
+            return std::unique_ptr<unary>(new unary(factor().get(), f));
         case token_category::MINUS:
             eat(token_category::MINUS);
-            return std::move(std::unique_ptr<unary>(new unary(factor().get(), f)));
+            return std::unique_ptr<unary>(new unary(factor().get(), f));
         case token_category::INTEGER:
             eat(token_category::INTEGER);
-            return std::move(std::unique_ptr<number_node>(new number_node(f)));
+            return std::unique_ptr<number_node>(new number_node(f));
         case token_category::LPARENS:
             eat(token_category::LPARENS);
-            node = std::move(std::unique_ptr<ast>(expression()));
+            node = std::unique_ptr<ast>(expression());
             eat(token_category::RPARENS);
-            return std::move(node);
+            return node;
         default:
             throw parsing_exception("Error when factorizing.");
 
