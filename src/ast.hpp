@@ -8,6 +8,7 @@ class ast
 {
 public:
     virtual boost::any traverse() = 0;
+    virtual ~ast() = default;
 };
 
 #endif //R_AST_HPP

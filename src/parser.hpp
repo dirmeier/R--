@@ -27,7 +27,7 @@ public:
 
     void init(const std::string&) const;
 
-    ast* parse() const;
+    std::unique_ptr<ast> parse() const;
 
 private:
 

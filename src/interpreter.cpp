@@ -12,7 +12,7 @@ std::string interpreter::interpret(std::string& text) const
 std::string interpreter::expression(std::string& text) const
 {
     parser_.init(text);
-    ast* node = parser_.parse();
+    std::unique_ptr<ast> node = parser_.parse();
     int i = boost::any_cast<int>(node->traverse());
     return std::to_string(i);
 }
