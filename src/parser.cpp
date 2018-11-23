@@ -1,6 +1,5 @@
 
 
-
 #include "parser.hpp"
 #include "binary.hpp"
 #include "unary.hpp"
@@ -37,7 +36,8 @@ std::unique_ptr<ast> parser::expression() const
                 throw parsing_exception("I dont know what to do.");
         }
 
-        curr = std::unique_ptr<binary>(new binary(curr.get(), term().get(), t));
+        curr = std::unique_ptr<binary>(
+          new binary(std::move(curr), std::move(term()), t));
     }
 
     return curr;
@@ -62,7 +62,8 @@ std::unique_ptr<ast> parser::term() const
             default:
                 throw parsing_exception("Error when term-ing.");
         }
-        curr = std::unique_ptr<binary>(new binary(curr.get(), factor().get(), t));
+        curr = std::unique_ptr<binary>(
+          new binary(std::move(curr), std::move(factor()), t));
     }
 
     return curr;
@@ -76,10 +77,10 @@ std::unique_ptr<ast> parser::factor() const
     {
         case token_category::PLUS:
             eat(token_category::PLUS);
-            return std::unique_ptr<unary>(new unary(factor().get(), f));
+            return std::unique_ptr<unary>(new unary(std::move(factor()), f));
         case token_category::MINUS:
             eat(token_category::MINUS);
-            return std::unique_ptr<unary>(new unary(factor().get(), f));
+            return std::unique_ptr<unary>(new unary(std::move(factor()), f));
         case token_category::INTEGER:
             eat(token_category::INTEGER);
             return std::unique_ptr<number_node>(new number_node(f));

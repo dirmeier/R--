@@ -3,6 +3,7 @@
 #define R_BINARY_HPP
 
 #include <boost/any.hpp>
+#include <memory>
 
 #include "ast.hpp"
 #include "arithmetic.hpp"
@@ -13,13 +14,16 @@
 class binary: public ast
 {
 public:
-    binary(ast* lhs,  ast* rhs,  token token):
-      lhs_(lhs), rhs_(rhs), token_(token)
+    binary(std::unique_ptr<ast>&& lhs,
+           std::unique_ptr<ast>&& rhs,
+           token token): lhs_(std::move(lhs)),
+                         rhs_(std::move(rhs)),
+                         token_(token)
     {}
 
     boost::any traverse()
     {
-        int l =  boost::any_cast<int>(lhs_->traverse());
+        int l = boost::any_cast<int>(lhs_->traverse());
         int r = boost::any_cast<int>(rhs_->traverse());
         switch (token_.category())
         {
@@ -38,9 +42,9 @@ public:
     }
 
 private:
-     ast* lhs_;
-     ast* rhs_;
-     token token_;
+    std::unique_ptr<ast> lhs_;
+    std::unique_ptr<ast> rhs_;
+    token token_;
 };
 
 #endif //R_BINARY_HPP

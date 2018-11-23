@@ -3,6 +3,7 @@
 #define R_UNARY_HPP
 
 #include <boost/any.hpp>
+#include <memory>
 
 #include "ast.hpp"
 #include "parsing_exception.hpp"
@@ -13,8 +14,8 @@ class unary: public ast
 {
 public:
 
-    unary(ast* expression, token token):
-      expression_(expression), token_(token)
+    unary(std::unique_ptr<ast>&& expression, token token):
+      expression_(std::move(expression)), token_(token)
     {}
 
     boost::any traverse()
@@ -32,8 +33,8 @@ public:
     }
 
 private:
-     ast* expression_;
-     token token_;
+    std::unique_ptr<ast> expression_;
+    token token_;
 };
 
 #endif //R_NODE_HPP
