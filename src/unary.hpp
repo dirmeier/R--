@@ -25,6 +25,7 @@ public:
         {
             case token_category::PLUS:
                 times = 1;
+                // fallthrough
             case token_category::MINUS:
                 return times * boost::any_cast<int>(expression_->traverse());
             default:
