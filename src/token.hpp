@@ -19,7 +19,7 @@ public:
       category_(category), value_(value)
     {}
 
-    const token_category category() const
+    token_category category() const
     {
         return category_;
     }
