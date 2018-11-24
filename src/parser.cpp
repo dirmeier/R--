@@ -37,7 +37,7 @@ std::unique_ptr<ast> parser::expression() const
         }
 
         curr = std::unique_ptr<binary>(
-          new binary(std::move(curr), std::move(term()), t));
+          new binary(std::move(curr), term(), t));
     }
 
     return curr;
@@ -63,7 +63,7 @@ std::unique_ptr<ast> parser::term() const
                 throw parsing_exception("Error when term-ing.");
         }
         curr = std::unique_ptr<binary>(
-          new binary(std::move(curr), std::move(factor()), t));
+          new binary(std::move(curr), factor(), t));
     }
 
     return curr;
@@ -77,10 +77,10 @@ std::unique_ptr<ast> parser::factor() const
     {
         case token_category::PLUS:
             eat(token_category::PLUS);
-            return std::unique_ptr<unary>(new unary(std::move(factor()), f));
+            return std::unique_ptr<unary>(new unary(factor(), f));
         case token_category::MINUS:
             eat(token_category::MINUS);
-            return std::unique_ptr<unary>(new unary(std::move(factor()), f));
+            return std::unique_ptr<unary>(new unary(factor(), f));
         case token_category::INTEGER:
             eat(token_category::INTEGER);
             return std::unique_ptr<number_node>(new number_node(f));
