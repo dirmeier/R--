@@ -7,8 +7,8 @@
 
 An interpreter for R in C++.
 
-![R--](https://github.com/dirmeier/R--/blob/master/_fig/demo.gif "R--")
-
+ ![R--](https://github.com/dirmeier/R--/blob/master/_fig/demo.gif "R--") 
+ 
 ## About
 
 This repository contains a toy implementation of an interpreter for `R` written in `C++`. 
@@ -28,17 +28,12 @@ Clone/download the project and run:
 
 ```sh
 mkdir build && cd build
-cmake .. && make
-./R--
+meson .. && ninja
+
+./src/R--
 ```
 
-If you want to install `R--` call in addition:
-
-```sh
-make install
-```
-
-This of course requires you to have `CMake`.
+This of course requires you to have `meson` which you cat get from `conda-forge` or `pip`.
 
 ## Author
 
