@@ -15,6 +15,9 @@ add_global_arguments([
     '-DPACKAGE_VERSION="' + meson.project_version() + '"'],
   language : 'cpp')
 
+# boost
+boost_dep = dependency('boost', required : true)
+
 subdir('src')
 
 if get_option('tests')
