@@ -28,7 +28,7 @@
 
 #include "interpreter.hpp"
 
-int main(int argc, char* argv[])
+int main(int /*argc*/, char* /*argv*/[])
 {
     interpreter::instance().run();
     return EXIT_SUCCESS;
