@@ -27,10 +27,8 @@ However the lexer of course can translate to any language. So far the interprete
 Clone/download the project and run:
 
 ```sh
-mkdir build && cd build
-meson .. && ninja
-
-./src/R--
+meson build . && ninja -C build
+./build/src/R--
 ```
 
 This of course requires you to have `meson` which you cat get from `conda-forge` or `pip`.
