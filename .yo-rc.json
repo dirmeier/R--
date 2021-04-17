@@ -1,9 +1,0 @@
-{
-  "generator-c-bones": {
-    "user": "Simon Dirmeier",
-    "email": "simon.dirmeier@web.de",
-    "artifactID": "r--",
-    "desc": "Another R interpreter in C++",
-    "githubuser": "dirmeier"
-  }
-}
