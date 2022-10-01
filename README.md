@@ -9,8 +9,8 @@
 
 ## About
 
-This repository contains a toy implementation of an interpreter for `Python` written in `C++` to learn more about 
-interpreters, lexers/tokenizers, parsers and ASTs. Since `Python` and `C++` are the greatest 
+This repository contains a toy implementation of an interpreter for `Python` written in `C++` to learn more about
+interpreters, lexers/tokenizers, parsers and ASTs. Since `Python` and `C++` are the greatest
 So far the interpreter can do:
 
 * <strike>basic arithmetic</strike>,
