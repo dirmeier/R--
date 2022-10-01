@@ -1,5 +1,5 @@
-Rmm_exe = executable(
-  'R--', files([
+Pythonmm_exe = executable(
+  'Python--', files([
     'arithmetic.cpp',
     'interpreter.cpp',
     'lexer.cpp',

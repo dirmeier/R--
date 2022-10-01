@@ -1,20 +1,17 @@
-# R--
+# Python--
 
 [![Project Status](http://www.repostatus.org/badges/latest/concept.svg)](http://www.repostatus.org/#concept)
-[![Build Status](https://travis-ci.org/dirmeier/R--.svg?branch=master)](https://travis-ci.org/dirmeier/R--)
-[![codecov](https://codecov.io/gh/dirmeier/R--/branch/master/graph/badge.svg)](https://codecov.io/gh/dirmeier/R--)
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/14653f9754cb40408ad614b305fb0c5d)](https://www.codacy.com/app/simon-dirmeier/R--?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=dirmeier/R--&amp;utm_campaign=Badge_Grade)
+[![Build Status](https://travis-ci.org/dirmeier/Python--.svg?branch=master)](https://travis-ci.org/dirmeier/Python--)
+[![codecov](https://codecov.io/gh/dirmeier/Python--/branch/master/graph/badge.svg)](https://codecov.io/gh/dirmeier/Python--)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/14653f9754cb40408ad614b305fb0c5d)](https://www.codacy.com/app/simon-dirmeier/Python--?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=dirmeier/Python--&amp;utm_campaign=Badge_Grade)
 
-An interpreter for R in C++.
+> An interpreter for Python in C++.
 
- ![R--](https://github.com/dirmeier/R--/blob/master/_fig/demo.gif "R--") 
- 
 ## About
 
-This repository contains a toy implementation of an interpreter for `R` written in `C++`. 
-The project is mainly to understand how interpreters, lexers/tokenizers, parsers, ASTs and things like that work exactly. 
-Since `R` and `C++` are the greatest languages of all time, I chose to try it on these. 
-However the lexer of course can translate to any language. So far the interpreter can do:
+This repository contains a toy implementation of an interpreter for `Python` written in `C++` to learn more about 
+interpreters, lexers/tokenizers, parsers and ASTs. Since `Python` and `C++` are the greatest 
+So far the interpreter can do:
 
 * <strike>basic arithmetic</strike>,
 * functions,
@@ -28,11 +25,11 @@ Clone/download the project and run:
 
 ```sh
 meson build . && ninja -C build
-./build/src/R--
+./build/src/Python--
 ```
 
-This of course requires you to have `meson` which you cat get from `conda-forge` or `pip`.
+This requires you to have `meson` which you cat get from `conda-forge` or `pip`.
 
 ## Author
 
-Simon Dirmeier <a href="mailto:simon.dirmeier@web.de">simon.dirmeier@web.de</a>
+Simon Dirmeier <a href="mailto:sfyrbnd @ pm me">sfyrbnd @ pm me</a>

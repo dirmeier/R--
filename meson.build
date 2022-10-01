@@ -1,5 +1,5 @@
 project(
-  'R--',
+  'Python--',
   'cpp',
   version : '0.0.1',
   default_options : [

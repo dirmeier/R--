@@ -1,10 +1,3 @@
-/**
- * Author: Simon Dirmeier
- * Date: 21.10.18
- * Email: simon.dirmeier@bsse.ethz.ch
- */
-
-
 #ifndef R_PARSER_HPP
 #define R_PARSER_HPP
 
@@ -20,17 +13,16 @@
 
 class parser
 {
-public:
-
-    parser(): lexer_(), token_()
-    {}
+   public:
+    parser() : lexer_(), token_()
+    {
+    }
 
     void init(const std::string&) const;
 
     std::unique_ptr<ast> parse() const;
 
-private:
-
+   private:
     std::unique_ptr<ast> expression() const;
     std::unique_ptr<ast> term() const;
     std::unique_ptr<ast> factor() const;
@@ -41,4 +33,4 @@ private:
     mutable token token_;
 };
 
-#endif //R_PARSER_HPP
+#endif  // R_PARSER_HPP

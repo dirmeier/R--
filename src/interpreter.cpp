@@ -8,19 +8,18 @@ std::string interpreter::interpret(std::string& text) const
     return expression(text);
 }
 
-
 std::string interpreter::expression(std::string& text) const
 {
     parser_.init(text);
     std::unique_ptr<ast> node = parser_.parse();
-    int i = boost::any_cast<int>(node->traverse());
+    int i                     = boost::any_cast<int>(node->traverse());
     return std::to_string(i);
 }
 
 void interpreter::run() const
 {
     bool is_first = true;
-    bool exec = true;
+    bool exec     = true;
     std::string line;
     while (exec)
     {
@@ -29,7 +28,7 @@ void interpreter::run() const
             std::cout << DISCLAIMER << std::endl;
             is_first = false;
         }
-        std::cout << "R-- > ";
+        std::cout << "Python-- 0.0.1\n>>> ";
         std::getline(std::cin, line);
         try
         {
@@ -41,8 +40,9 @@ void interpreter::run() const
         }
     }
 }
-const char* interpreter::DISCLAIMER = "\nWelcome to R-- v0.1 ('It's Alive').\n\n" \
-  "R-- is a slower, experimental implementation of R in C++.\n" \
-  "Be aware of bugs and minimal functionality.\n" \
-  "If you are brave enough you can contribute.\n\n" \
+const char* interpreter::DISCLAIMER =
+  "\nWelcome to Python-- v0.1 ('It's Alive').\n\n"
+  "Python-- is a slower, experimental implementation of Python in C++.\n"
+  "Be aware of bugs and minimal functionality.\n"
+  "If you are brave enough you can contribute.\n\n"
   "Ctrl+C to quit! Good luck.\n\n";

@@ -1,4 +1,3 @@
-
 #ifndef R_AST_HPP
 #define R_AST_HPP
 
@@ -6,9 +5,9 @@
 
 class ast
 {
-public:
+   public:
     virtual boost::any traverse() = 0;
-    virtual ~ast() = default;
+    virtual ~ast()                = default;
 };
 
-#endif //R_AST_HPP
+#endif  // R_AST_HPP

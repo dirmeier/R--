@@ -4,7 +4,6 @@
  * Email: simon.dirmeier@bsse.ethz.ch
  */
 
-
 #ifndef R_LEXER_HPP
 #define R_LEXER_HPP
 
@@ -14,14 +13,15 @@
 
 class lexer
 {
-public:
+   public:
     lexer()
-    {}
+    {
+    }
 
     void init(const std::string&) const;
     token next() const;
 
-private:
+   private:
     void increment_position() const;
     int to_int() const;
     void skip_whitespace() const;
@@ -33,4 +33,4 @@ private:
     mutable char current_char_;
 };
 
-#endif //R_LEXER_HPP
+#endif  // R_LEXER_HPP

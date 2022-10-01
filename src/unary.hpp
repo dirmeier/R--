@@ -1,4 +1,3 @@
-
 #ifndef R_UNARY_HPP
 #define R_UNARY_HPP
 
@@ -10,13 +9,13 @@
 #include "token.hpp"
 #include "token_category.hpp"
 
-class unary: public ast
+class unary : public ast
 {
-public:
-
-    unary(std::unique_ptr<ast>&& expression, token token):
-      expression_(std::move(expression)), token_(token)
-    {}
+   public:
+    unary(std::unique_ptr<ast>&& expression, token token)
+        : expression_(std::move(expression)), token_(token)
+    {
+    }
 
     boost::any traverse()
     {
@@ -33,9 +32,9 @@ public:
         }
     }
 
-private:
+   private:
     std::unique_ptr<ast> expression_;
     token token_;
 };
 
-#endif //R_NODE_HPP
+#endif  // R_NODE_HPP

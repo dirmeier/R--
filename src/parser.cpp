@@ -1,5 +1,3 @@
-
-
 #include "parser.hpp"
 #include "binary.hpp"
 #include "unary.hpp"
@@ -36,8 +34,7 @@ std::unique_ptr<ast> parser::expression() const
                 throw parsing_exception("I dont know what to do.");
         }
 
-        curr = std::unique_ptr<binary>(
-          new binary(std::move(curr), term(), t));
+        curr = std::unique_ptr<binary>(new binary(std::move(curr), term(), t));
     }
 
     return curr;
@@ -62,8 +59,8 @@ std::unique_ptr<ast> parser::term() const
             default:
                 throw parsing_exception("Error when term-ing.");
         }
-        curr = std::unique_ptr<binary>(
-          new binary(std::move(curr), factor(), t));
+        curr =
+          std::unique_ptr<binary>(new binary(std::move(curr), factor(), t));
     }
 
     return curr;
@@ -91,7 +88,6 @@ std::unique_ptr<ast> parser::factor() const
             return node;
         default:
             throw parsing_exception("Error when factorizing.");
-
     }
 }
 

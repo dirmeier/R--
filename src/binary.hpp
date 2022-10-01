@@ -11,15 +11,13 @@
 #include "token.hpp"
 #include "token_category.hpp"
 
-class binary: public ast
+class binary : public ast
 {
-public:
-    binary(std::unique_ptr<ast>&& lhs,
-           std::unique_ptr<ast>&& rhs,
-           token token): lhs_(std::move(lhs)),
-                         rhs_(std::move(rhs)),
-                         token_(token)
-    {}
+   public:
+    binary(std::unique_ptr<ast>&& lhs, std::unique_ptr<ast>&& rhs, token token)
+        : lhs_(std::move(lhs)), rhs_(std::move(rhs)), token_(token)
+    {
+    }
 
     boost::any traverse()
     {
@@ -27,7 +25,6 @@ public:
         int r = boost::any_cast<int>(rhs_->traverse());
         switch (token_.category())
         {
-
             case token_category::PLUS:
                 return addition(l, r);
             case token_category::MINUS:
@@ -41,10 +38,10 @@ public:
         }
     }
 
-private:
+   private:
     std::unique_ptr<ast> lhs_;
     std::unique_ptr<ast> rhs_;
     token token_;
 };
 
-#endif //R_BINARY_HPP
+#endif  // R_BINARY_HPP

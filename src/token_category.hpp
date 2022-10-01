@@ -1,4 +1,3 @@
-
 #ifndef R_TOKEN_CATEGORY_HPP
 #define R_TOKEN_CATEGORY_HPP
 
@@ -16,5 +15,4 @@ enum class token_category
     END
 };
 
-
-#endif //R_TOKEN_CATEGORY_HPP
+#endif  // R_TOKEN_CATEGORY_HPP

@@ -9,8 +9,8 @@ const char lexer::END_CHAR = '$';
 
 void lexer::init(const std::string& text) const
 {
-    text_ = text + END_CHAR;
-    position_ = 0;
+    text_         = text + END_CHAR;
+    position_     = 0;
     current_char_ = text_[position_];
 }
 
@@ -60,13 +60,13 @@ token lexer::next() const
     return token(token_category::END, -1);
 }
 
-void lexer::skip_whitespace()  const
+void lexer::skip_whitespace() const
 {
     while (current_char_ != '$' && current_char_ == ' ')
         increment_position();
 }
 
-void lexer::increment_position()  const
+void lexer::increment_position() const
 {
     position_++;
     if (position_ > text_.size() - 1)
@@ -75,7 +75,7 @@ void lexer::increment_position()  const
         current_char_ = text_[position_];
 }
 
-int lexer::to_int()  const
+int lexer::to_int() const
 {
     std::string res("");
     while (current_char_ != '$' && isdigit(current_char_))

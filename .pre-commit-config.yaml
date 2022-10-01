@@ -1,0 +1,21 @@
+repos:
+- repo: https://github.com/pre-commit/pre-commit-hooks
+  rev: v4.0.1
+  hooks:
+    - id: check-docstring-first
+    - id: check-added-large-files
+    - id: check-merge-conflict
+    - id: check-toml
+    - id: check-yaml
+    - id: debug-statements
+    - id: end-of-file-fixer
+    - id: no-commit-to-branch
+      args: [--branch, main]
+    - id: requirements-txt-fixer
+    - id: trailing-whitespace
+- repo: https://github.com/pre-commit/mirrors-clang-format
+  rev: v14.0.6
+  hooks:
+    - id: clang-format
+      args: ["--dry-run", "-Werror"]
+      files: "(src|tests)"

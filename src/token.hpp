@@ -1,4 +1,3 @@
-
 #ifndef R_TOKEN_HPP
 #define R_TOKEN_HPP
 
@@ -8,16 +7,16 @@
 #include "node.hpp"
 #include "token_category.hpp"
 
-
 class token
 
 {
-public:
+   public:
     token() = default;
 
-    token(token_category category, boost::any value):
-      category_(category), value_(value)
-    {}
+    token(token_category category, boost::any value)
+        : category_(category), value_(value)
+    {
+    }
 
     token_category category() const
     {
@@ -29,11 +28,9 @@ public:
         return value_;
     }
 
-
-private:
+   private:
     token_category category_;
     boost::any value_;
 };
 
-
-#endif //R_TOKEN_HPP
+#endif  // R_TOKEN_HPP
